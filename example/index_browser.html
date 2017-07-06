@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>example</title>
+  <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/1.7.6/skins/default/index.css" />
+  <script type="text/javascript" src="https://g.alicdn.com/de/prismplayer/1.7.6/prism.js"></script>
+</head>
+<body>
+  <h3>前端认证</h3>
+  <div  class="prism-player" id="J_prismPlayer"></div>
+  <br/>
+  <br/>
+  <br/>
+  <a href="/">服务端认证</a><br/>
+
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../node_modules/jssha/src/sha.js"></script>
+<script src="../node_modules/jssha/src/sha1.js"></script>
+<script src="../example/uuid_v4.js"></script>
+<script src="../src/playAuthURL.js"></script>
+<script>
+$(function() {
+	var option = {id: "J_prismPlayer",autoplay: false ,width: "800px",height: "600px",vid: "4c92b2e8061d4fde8bb4675c311a2afc",playauth: ""};
+
+  /**
+   * 请求认证串
+   * @author mao
+   * @version version
+   * @date    2017-07-06
+   */
+  function excuteVideo() {
+    var that = arguments;
+
+    $.ajax({
+    	type:'get',
+    	url:videoPlayAuth.getURL('LTAIcNO480JCPvsK', 'nIKdkfQ9LnXbFJ9ZAplTtAlDPE3Mqe', '4c92b2e8061d4fde8bb4675c311a2afc'),
+    	success:function(res) {
+        option.playauth = res.PlayAuth;
+        var player = new prismplayer(option);
+    	},
+      error: function(xhr, error) {
+        if(error == 'error') {
+          that.callee();
+        }
+      }
+    });
+  }
+
+  //触发
+  excuteVideo();
+})
+</script>
+</body>
+</html>

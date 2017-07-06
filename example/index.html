@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport"   content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+  <title>用户测试用例</title>
+  <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/1.7.6/skins/default/index.css" />
+  <script type="text/javascript" src="https://g.alicdn.com/de/prismplayer/1.7.6/prism.js"></script>
+  </head>
+  <body>
+  <h3>服务端认证</h3>
+  <div class="prism-player" id="J_prismPlayer"></div>
+  <br/>
+  <br/>
+  <br/>
+  <a href="./on_browser">前端前端认证</a>
+  <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+  <script>
+  $(function() {
+    var option = {id: "J_prismPlayer",autoplay: false ,width: "800px",height: "600px",vid: "4c92b2e8061d4fde8bb4675c311a2afc",playauth: ""};
+
+    /**
+     * 请求认证串
+     * @author mao
+     * @version version
+     * @date    2017-07-06
+     */
+    function excuteVideo() {
+      var that = arguments;
+
+      $.ajax({
+        type:'get',
+        url:'./auth',
+        success:function(res) {
+          option.playauth = res.PlayAuth;
+          var player = new prismplayer(option);
+        },
+        error: function(xhr, error) {
+          if(error == 'error') {
+            that.callee();
+          }
+        }
+      });
+    }
+
+    //触发
+    excuteVideo();
+  })
+  </script>
+  </body>
+</html>
